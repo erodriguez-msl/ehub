@@ -7,7 +7,7 @@ import EventCard from '../../../components/EventCard';
 
 export default function EventPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
-    const [event, setEvent] = useState([]);
+    const [event, setEvent] = useState(null);
     const [recommended, setRecommended] = useState([]);
 
     useEffect(() => {
@@ -42,18 +42,18 @@ export default function EventPage({ params }: { params: Promise<{ id: string }> 
             <div className='max-w-7xl mx-auto px-6 py-8 grid lg:grid-cols-3 gap-10'>
                 <div className='lg:col-span-2 space-y-6'>
                     <div>
-                        <h1 className='text-3xl md:text-4xl font-bold text-gray-900'>{event.name}</h1>
+                        <h1 className='text-3xl md:text-4xl font-bold text-gray-900'>{event?.name}</h1>
 
                         <div className='mt-3 flex flex-wrap gap-3 text-sm text-gray-500'>
-                            <span>{formatDate(event.startDate)}</span>
+                            <span>{formatDate(event?.startDate)}</span>
                             <span>•</span>
-                            <span className='capitalize'>{event.status}</span>
+                            <span className='capitalize'>{event?.status}</span>
                             <span>•</span>
-                            <span>{event.duration} min</span>
+                            <span>{event?.duration} min</span>
                         </div>
                     </div>
 
-                    <div className='prose max-w-none prose-gray' dangerouslySetInnerHTML={{ __html: event.body }} />
+                    <div className='prose max-w-none prose-gray' dangerouslySetInnerHTML={{ __html: event?.body }} />
                 </div>
 
                 <div className='lg:col-span-1'>
@@ -67,7 +67,7 @@ export default function EventPage({ params }: { params: Promise<{ id: string }> 
 
                             <input name='email' placeholder='Email' className='w-full border rounded-lg px-3 py-2 text-sm' />
 
-                            <input type='hidden' name='eventId' value={event.id} />
+                            <input type='hidden' name='eventId' value={event?.id} />
 
                             <button className='w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition'>Register Now</button>
                         </form>

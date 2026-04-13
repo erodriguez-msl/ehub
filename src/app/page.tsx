@@ -6,7 +6,7 @@ import Hero from '../components/Hero';
 import EventCard from '../components/EventCard';
 
 export default function Home() {
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState(null);
 
     useEffect(() => {
         async function listEvents() {
@@ -30,10 +30,10 @@ export default function Home() {
                 <section>
                     <div className='flex items-center justify-between mb-6'>
                         <h2 className='text-2xl md:text-3xl font-bold text-gray-900'>Upcoming Events</h2>
-                        <span className='text-sm text-gray-500'>{events.upcoming?.length || 0} events</span>
+                        <span className='text-sm text-gray-500'>{events?.upcoming?.length || 0} events</span>
                     </div>
 
-                    {events.upcoming?.length ? (
+                    {events?.upcoming?.length ? (
                         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                             {events.upcoming.map(e => (
                                 <EventCard key={e.id} event={e} />
@@ -47,12 +47,12 @@ export default function Home() {
                 <section>
                     <div className='flex items-center justify-between mb-6'>
                         <h2 className='text-2xl md:text-3xl font-bold text-gray-900'>On-Demand</h2>
-                        <span className='text-sm text-gray-500'>{events.ondemand?.length || 0} videos</span>
+                        <span className='text-sm text-gray-500'>{events?.ondemand?.length || 0} videos</span>
                     </div>
 
-                    {events.ondemand?.length ? (
+                    {events?.ondemand?.length ? (
                         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-                            {events.ondemand.map(e => (
+                            {events?.ondemand.map(e => (
                                 <EventCard key={e.id} event={e} />
                             ))}
                         </div>
