@@ -4,9 +4,9 @@ import EventCard from '../../../components/EventCard';
 export default async function EventPage({ params }) {
     const { id } = await params;
 
-    const event = await fetch(`http://localhost:3000/api/events/${id}`).then(res => res.json());
+    const event = await fetch(`/api/events/${id}`).then(res => res.json());
 
-    const recommended = await fetch(`http://localhost:3000/api/events`)
+    const recommended = await fetch(`/api/events`)
         .then(res => res.json())
         .then(data => [...(data.upcoming || []), ...(data.ondemand || [])].slice(0, 3));
 

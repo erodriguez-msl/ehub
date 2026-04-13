@@ -2,7 +2,7 @@ import Hero from '../components/Hero';
 import EventCard from '../components/EventCard';
 
 export default async function Home() {
-    const events = await fetch('http://localhost:3000/api/events', {
+    const events = await fetch('/api/events', {
         cache: 'no-store',
     }).then(res => res.json());
 
