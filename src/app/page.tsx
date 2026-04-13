@@ -1,10 +1,24 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import Hero from '../components/Hero';
 import EventCard from '../components/EventCard';
 
-export default async function Home() {
-    const events = await fetch('/api/events', {
-        cache: 'no-store',
-    }).then(res => res.json());
+export default function Home() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        async function listEvents() {
+            const data = await fetch('/api/events', {
+                cache: 'no-store',
+            }).then(res => res.json());
+
+            setEvents(data);
+        }
+
+        listEvents();
+    }, []);
 
     return (
         <main className='min-h-screen bg-gray-50'>

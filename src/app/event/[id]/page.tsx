@@ -1,14 +1,35 @@
+'use client';
+
+import { use, useEffect, useState } from 'react';
+
 import Link from 'next/link';
 import EventCard from '../../../components/EventCard';
 
-export default async function EventPage({ params }) {
-    const { id } = await params;
+export default function EventPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
+    const [event, setEvent] = useState([]);
+    const [recommended, setRecommended] = useState([]);
 
-    const event = await fetch(`/api/events/${id}`).then(res => res.json());
+    useEffect(() => {
+        if (!id) return;
 
-    const recommended = await fetch(`/api/events`)
-        .then(res => res.json())
-        .then(data => [...(data.upcoming || []), ...(data.ondemand || [])].slice(0, 3));
+        async function getEvent() {
+            const data = await fetch(`/api/events/${id}`).then(res => res.json());
+
+            setEvent(data);
+        }
+
+        async function listRecommended() {
+            const data = await fetch(`/api/events`)
+                .then(res => res.json())
+                .then(data => [...(data.upcoming || []), ...(data.ondemand || [])].slice(0, 3));
+
+            setRecommended(data);
+        }
+
+        getEvent();
+        listRecommended();
+    }, [id]);
 
     return (
         <div className='bg-gray-50 min-h-screen'>
